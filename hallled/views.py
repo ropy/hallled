@@ -1,3 +1,7 @@
+"""
+Defines the routes available.
+Methods which are annotated with "renderer='json'" are api methods
+"""
 import logging
 import json
 
@@ -25,6 +29,10 @@ def api_led_hsla(request):
     """
 
     :param request:
+        request.matchdict['hue'] the hue value to set
+        request.matchdict['saturation'] the saturation to set
+        request.matchdict['lightning'] the lightning to get
+        request.matchdict['modulo'] the modulo
     :return:
     """
 
@@ -68,6 +76,12 @@ def api_led_rgb(request):
 
 @view_config(route_name='api_info', renderer='json')
 def api_info(request):
+    """
+    Load the last saved request
+
+    :param request:
+    :return: the json payload
+    """
     data = ""
     with open('hallled/data/request.txt', 'r') as f:
         data = json.load(f)
@@ -85,6 +99,12 @@ def api_raw(request):
     return dict(arduino=response)
 
 def rememberRequest(request):
+    """
+    Saves the request payload as a json data.
+
+    :param request:
+    :return: none
+    """
     path = request.current_route_path()
     log.debug(path)
     path = path[9:]
@@ -103,6 +123,16 @@ def rememberRequest(request):
         json.dump(data, f)
 
 def translate(value, leftMin, leftMax, rightMin, rightMax):
+    """
+    Translates values from a given range to a defined range.
+
+    :param value: value to translate
+    :param leftMin: given min
+    :param leftMax:  given max
+    :param rightMin:  defined min
+    :param rightMax:  defined max
+    :return: translated value
+    """
     # Figure out how 'wide' each range is
     leftSpan = leftMax - leftMin
     rightSpan = rightMax - rightMin

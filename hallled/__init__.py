@@ -13,6 +13,7 @@ def main(global_config, **settings):
     config.add_route('api_led_hslm', '/api/led/hslm/{hue}/{saturation}/{lightning}/{modulo}')
     config.add_route('api_led_rgbm', '/api/led/rgbm/{red}/{green}/{blue}/{modulo}')
     config.add_route('api_serialcommand', '/api/raw/{command}')
+
     # info route
     config.add_route('api_info', '/api/info')
     config.scan()

@@ -35,42 +35,24 @@
 
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active">
+      <!-- First Tab. Sliders for hue, saturation, lightning and modulo. -->
+      <!-- value gets posted to the api (api/led/hslm/[hue]/[saturation]/[lightning]/[modulo]) -->
     <h3>Hue Saturation Lightning</h3>
       <div class="row">
-        <!--<div class="col-xs-2">-->
-            <!--<br/>-->
-            <!--<input size="2" type="text" id="amount_red" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
-            <!--<br/><br/>-->
-            <!--<input size="2" type="text" id="amount_green" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
-            <!--<br/><br/>-->
-            <!--<input size="2" type="text" id="amount_blue" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
-            <!--<br/><br/>-->
-            <!--<input size="2" type="text" id="amount_modulo" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
-
-        <!--</div>-->
         <div class="col-xs-12">
             <div id="hue"></div>
             <div id="saturation"></div>
             <div id="lightning"></div>
             <div id="modulo"></div>
-            <!--<div id="swatch" class="ui-widget-content ui-corner-all"></div>-->
         </div>
       </div>
   </div>
   <div id="slide" class="tab-pane fade">
-    <!--<h3>RGB</h3>-->
-      <!--<div class="row">-->
-        <!--<div class="col-xs-2">-->
-            <!--<br/>-->
-            <!--<input size="2" type="text" id="amount_red" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
-            <!--<br/><br/>-->
-            <!--<input size="2" type="text" id="amount_green" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
-            <!--<br/><br/>-->
-            <!--<input size="2" type="text" id="amount_blue" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
-            <!--<br/><br/>-->
-            <!--<input size="2" type="text" id="amount_modulo" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
-
-        <!--</div>-->
+    <h3>Animations</h3>
+      <div class="row">
+        <div class="col-xs-2">
+            <button class="btn btn-default" type="submit">Rainbow</button>
+        </div>
         <!--<div class="col-xs-10">-->
             <!--<div id="red"></div>-->
             <!--<div id="green"></div>-->

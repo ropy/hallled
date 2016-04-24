@@ -39,7 +39,7 @@ class SerialCommand:
 
     def build_command(self):
         pass
-
+    
     def sendHSLM(self, hue, saturation, lightning, modulo=1):
         # command = self.action['HSLM'] + hue + saturation + lightning + modulo
         # payload = {'hue':hue, 'saturation':saturation, 'lightning':lightning, 'modulo':modulo}

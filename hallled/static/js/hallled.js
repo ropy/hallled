@@ -106,26 +106,7 @@ function onChange() {
         modulo = $( "#modulo" ).slider( "value");
 
         refreshSwatch();
-
-        //led_post_hslm(hue, saturation, lightning, modulo);
 }
-
-/*
-* convert a hex color value from rgb
-*/
-//function hexFromRGB(r, g, b) {
-//    var hex = [
-//        r.toString( 16 ),
-//        g.toString( 16 ),
-//        b.toString( 16 )
-//    ];
-//    $.each( hex, function( nr, val ) {
-//        if ( val.length === 1 ) {
-//            hex[ nr ] = "0" + val;
-//        }
-//    });
-//    return hex.join( "" ).toUpperCase();
-//}
 
 /*
 * refresh the preview window
@@ -136,16 +117,9 @@ function refreshSwatch() {
         lightning = $( "#lightning" ).slider( "value" );
 
         var color = tinycolor({h: hue, s: 0.99, l: 0.5});
-//        console.log(color.toHex());
 
-//        $( "#swatch" ).css( "background-color", "#" + color.toHex() );
         $( "#saturation" ).css( "background" , "linear-gradient(to right, lightgrey , #" + color.toHex() + ")");
         $( "#lightning" ).css( "background" , "linear-gradient(to right, black , #" + color.toHex() + ")");
-//        $( "#saturation" ).css( "background: -moz-linear-gradient(right, red, yellow)";
-//        $( "#hue" ).css( "background", "#" + color.toHex() );
-//        $( ".ui-slider-range").css( "background", "#" + color.toHex() );
-//        $( "#hue" ).css( "color", "#" + color.toHex() );
-
 }
 
 /** setup the sliders **/
@@ -190,19 +164,10 @@ function setupSliders(data) {
         slide: onSlide,
         change: onChange
     });
-
-//    $("#amount_red").val($( "#red" ).slider( "value" ));
-//    $("#amount_green").val($( "#green" ).slider( "value" ));
-//    $("#amount_blue").val($( "#blue" ).slider( "value" ));
-//    $("#amount_modulo").val($( "#modulo" ).slider( "value" ));
 };
 
 /** page load finished **/
 jQuery(window).load(function () {
     // init sliders from last state
     loadLastState();
-//var data = { h: 0, s: 1, l: .5, m:10 };
-//setupSliders(data);
-//var color = tinycolor(data);
-// console.log(color.toHsl());
 });
