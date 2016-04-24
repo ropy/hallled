@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="${request.locale_name}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="author" content="Pylons Project">
+    <link rel="shortcut icon" href="${request.static_url('hallled:static/pyramid-16x16.png')}">
+
+    <title>Hall LED</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <link href="${request.static_url('hallled:static/css/jquery-ui.min.css')}" rel="stylesheet">
+    <link href="${request.static_url('hallled:static/css/jquery-ui.structure.min.css')}" rel="stylesheet">
+    <link href="${request.static_url('hallled:static/css/jquery-ui.theme.min.css')}" rel="stylesheet">
+
+    <!-- Custom styles for this scaffold -->
+    <link href="${request.static_url('hallled:static/theme.css')}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="starter-template">
+    <div class="container-fluid">
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+  <li><a data-toggle="tab" href="#slide">Menu 1</a></li>
+  <!--<li><a data-toggle="tab" href="#menu2">Menu 2</a></li>-->
+</ul>
+
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
+    <h3>Hue Saturation Lightning</h3>
+      <div class="row">
+        <!--<div class="col-xs-2">-->
+            <!--<br/>-->
+            <!--<input size="2" type="text" id="amount_red" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
+            <!--<br/><br/>-->
+            <!--<input size="2" type="text" id="amount_green" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
+            <!--<br/><br/>-->
+            <!--<input size="2" type="text" id="amount_blue" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
+            <!--<br/><br/>-->
+            <!--<input size="2" type="text" id="amount_modulo" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
+
+        <!--</div>-->
+        <div class="col-xs-12">
+            <div id="hue"></div>
+            <div id="saturation"></div>
+            <div id="lightning"></div>
+            <div id="modulo"></div>
+            <!--<div id="swatch" class="ui-widget-content ui-corner-all"></div>-->
+        </div>
+      </div>
+  </div>
+  <div id="slide" class="tab-pane fade">
+    <!--<h3>RGB</h3>-->
+      <!--<div class="row">-->
+        <!--<div class="col-xs-2">-->
+            <!--<br/>-->
+            <!--<input size="2" type="text" id="amount_red" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
+            <!--<br/><br/>-->
+            <!--<input size="2" type="text" id="amount_green" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
+            <!--<br/><br/>-->
+            <!--<input size="2" type="text" id="amount_blue" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
+            <!--<br/><br/>-->
+            <!--<input size="2" type="text" id="amount_modulo" readonly style="border:0; color:#f6931f; font-weight:bold;">-->
+
+        <!--</div>-->
+        <!--<div class="col-xs-10">-->
+            <!--<div id="red"></div>-->
+            <!--<div id="green"></div>-->
+            <!--<div id="blue"></div>-->
+            <!--<div id="all"></div>-->
+            <!--<div id="modulo"></div>-->
+            <!--<div id="swatch" class="ui-widget-content ui-corner-all"></div>-->
+        <!--</div>-->
+      <!--</div>-->
+  </div>
+  <div id="menu2" class="tab-pane fade">
+    <h3>Menu 2</h3>
+    <p>Some content in menu 2.</p>
+  </div>
+</div>
+
+    </div>
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="${request.static_url('hallled:static/js/jquery-1.12.0.min.js')}"></script>
+<script src="${request.static_url('hallled:static/js/jquery-ui.min.js')}"></script>
+<script src="${request.static_url('hallled:static/js/jquery.ui.touch-punch.min.js')}"></script>
+<script src="${request.static_url('hallled:static/js/tinycolor.min.js')}"></script>
+
+<script src="${request.static_url('hallled:static/js/hallled.js')}"></script>
+</body>
+</html>

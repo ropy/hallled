@@ -150,3 +150,29 @@ p {
     margin-top: 20px;
   }
 }
+
+#hue, #saturation, #lightning, #modulo {
+  float: left;
+  clear: left;
+  width: 100%;
+  margin: 15px;
+}
+#swatch {
+  width: 120px;
+  height: 100px;
+  margin-top: 18px;
+  margin-left: 350px;
+  background-image: none;
+}
+/*#hue { background-image: url("img/hue_700x5.png"); background-size:cover;}*/
+#hue { background-image: url("img/hue_700x5.png"); background-size: 100% 100%;}
+#hue .ui-slider-range { background: transparent; }
+#hue .ui-slider-handle { border-color: #ef2929; }
+#saturation { background: linear-gradient(to right, lightgrey , red); }
+#saturation .ui-slider-range { background: transparent; }
+#saturation .ui-slider-handle { border-color: #8ae234; }
+#lightning { background: linear-gradient(to right, black , white); }
+#lightning .ui-slider-range { background: transparent; }
+#lightning .ui-slider-handle { border-color: #729fcf; }
+#modulo .ui-slider-range { background: #000000; }
+#modulo .ui-slider-handle { border-color: #000000; }

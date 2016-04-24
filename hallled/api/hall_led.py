@@ -14,7 +14,7 @@ def api_led(request):
 	
 def led(command, operator, amount):
 	#with serial.Serial("/dev/ttyACM0", 9600, timeout=2) as ser:
-	ser = serial.serial_for_url("/dev/ttyACM0", do_not_open=True)
+	ser = serial.serial_for_url("/dev/ttyACM1", do_not_open=True)
 	try:
 		ser.open()
 	except serial.SerialException as e:
