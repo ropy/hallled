@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="da634bf6-b47e-427a-b013-053037bd203b" name="dc" url="http://dc">
+        <fileTransfer host="dc" port="22" privateKey="$USER_HOME$/Private/keys/ssh/ropu@chemmedia/ropu" rootFolder="/home/ropu/devel/web/HallLed" accessType="SFTP" username="ropu" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

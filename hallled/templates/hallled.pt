@@ -29,7 +29,7 @@
     <div class="container-fluid">
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-  <li><a data-toggle="tab" href="#slide">Menu 1</a></li>
+  <li><a data-toggle="tab" href="#test">Test</a></li>
   <!--<li><a data-toggle="tab" href="#menu2">Menu 2</a></li>-->
 </ul>
 
@@ -47,21 +47,16 @@
         </div>
       </div>
   </div>
-  <div id="slide" class="tab-pane fade">
-    <h3>Animations</h3>
+  <div id="test" class="tab-pane fade">
+    <h3>Test</h3>
       <div class="row">
         <div class="col-xs-2">
-            <button class="btn btn-default" type="submit">Rainbow</button>
+            <button class="btn btn-default" type="submit" id="send_raw_pipe_data">Send</button>
         </div>
-        <!--<div class="col-xs-10">-->
-            <!--<div id="red"></div>-->
-            <!--<div id="green"></div>-->
-            <!--<div id="blue"></div>-->
-            <!--<div id="all"></div>-->
-            <!--<div id="modulo"></div>-->
-            <!--<div id="swatch" class="ui-widget-content ui-corner-all"></div>-->
-        <!--</div>-->
-      <!--</div>-->
+        <div class="col-xs-10">
+            <input type="text" name="raw_pipe_data" id="raw_pipe_data" style="color:black;"/>
+        </div>
+      </div>
   </div>
   <div id="menu2" class="tab-pane fade">
     <h3>Menu 2</h3>

@@ -3,6 +3,8 @@
  */
 var busy = false;
 
+var body = $('body');
+
 /** command, operator, value **/
 var led_post_coa = function(c, o, a) {
     if(!busy) {
@@ -63,6 +65,26 @@ var led_post_hslm = function(h,s,l, modulo) {
                 },
                 timeout: 1000}
         )
+    }
+};
+
+var led_raw_command = function(command) {
+    if(!busy) {
+        busy = true;
+        jQuery.ajax(
+            {
+                type: "POST",
+                url: 'api/led/raw/' + command,
+                dataType: 'json',
+                error: function(msg) {
+                busy = false;
+                },
+                success: function(data) {
+                    busy=false;
+                },
+                timeout: 1000
+            }
+        );
     }
 };
 
@@ -166,8 +188,34 @@ function setupSliders(data) {
     });
 };
 
+function initButtons(){
+    // init the pipe button
+    body.on("click", '#send_raw_pipe_data', function(){
+        if(!busy) {
+            busy = true;
+            jQuery.ajax(
+                {
+                    type: "POST",
+                    url: '/api/pipe',
+                    data: $('#raw_pipe_data').val(),
+                    error: function(msg) {
+                    busy = false;
+                    },
+                    success: function(data) {
+                        busy=false;
+                    },
+                    timeout: 1000
+                }
+            );
+        }
+    });
+}
+
 /** page load finished **/
 jQuery(window).load(function () {
-    // init sliders from last state
+    // init sliders from last state, after getting last state, init the sliders
     loadLastState();
+
+    // init buttons
+    initButtons();
 });

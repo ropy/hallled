@@ -3,7 +3,7 @@ body {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
   color: #ffffff;
-  background: #bc2131;
+  background: #217fbc;
 }
 h1,
 h2,
@@ -17,6 +17,11 @@ h6 {
 p {
   font-weight: 300;
 }
+
+input {
+  color: #217fbc;
+}
+
 .font-normal {
   font-weight: 400;
 }
@@ -154,8 +159,9 @@ p {
 #hue, #saturation, #lightning, #modulo {
   float: left;
   clear: left;
-  width: 100%;
+  width: 95%;
   margin: 15px;
+  height: 25px;
 }
 #swatch {
   width: 120px;
@@ -166,13 +172,17 @@ p {
 }
 /*#hue { background-image: url("img/hue_700x5.png"); background-size:cover;}*/
 #hue { background-image: url("img/hue_700x5.png"); background-size: 100% 100%;}
-#hue .ui-slider-range { background: transparent; }
-#hue .ui-slider-handle { border-color: #ef2929; }
+#hue .ui-slider-range { background: transparent; height:25px;}
+#hue .ui-slider-handle {
+  border-color: #ef2929;
+  height:32px;
+}
 #saturation { background: linear-gradient(to right, lightgrey , red); }
 #saturation .ui-slider-range { background: transparent; }
-#saturation .ui-slider-handle { border-color: #8ae234; }
+#saturation .ui-slider-handle { border-color: #8ae234; height:32px; }
 #lightning { background: linear-gradient(to right, black , white); }
-#lightning .ui-slider-range { background: transparent; }
-#lightning .ui-slider-handle { border-color: #729fcf; }
-#modulo .ui-slider-range { background: #000000; }
-#modulo .ui-slider-handle { border-color: #000000; }
+#lightning .ui-slider-range { background: transparent;  }
+#lightning .ui-slider-handle { border-color: #729fcf; height:32px;}
+#modulo { background: linear-gradient(to right, black , white); }
+#modulo .ui-slider-range { background: transparent; }
+#modulo .ui-slider-handle { border-color: #000000; height:32px;}

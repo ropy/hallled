@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="pyramid web application">
+    <meta name="author" content="ropu">
+
+    <link rel="shortcut icon" href="${request.static_url('hallled:static/pyramid-16x16.png')}">
+
+    <title>Hall LED</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <link href="${request.static_url('hallled:static/css/jquery-ui.min.css')}" rel="stylesheet">
+    <link href="${request.static_url('hallled:static/css/jquery-ui.structure.min.css')}" rel="stylesheet">
+    <link href="${request.static_url('hallled:static/css/jquery-ui.theme.min.css')}" rel="stylesheet">
+
+    <!--?<!-- Custom styles for this scaffold -->
+    <link href="${request.static_url('hallled:static/theme.css')}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+        <li><a data-toggle="tab" href="#test">Test</a></li>
+        <!--<li><a data-toggle="tab" href="#menu2">Menu 2</a></li>-->
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <!-- First Tab. Sliders for hue, saturation, lightning and modulo. -->
+            <!-- value gets posted to the api (api/led/hslm/[hue]/[saturation]/[lightning]/[modulo]) -->
+            <h3>Hue Saturation Lightning</h3>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="colorpicker"></div> <!-- react component -->
+                </div>
+            </div>
+        </div>
+        <div id="test" class="tab-pane fade">
+            <h3>Test</h3>
+            <!--?<div class="row">-->
+                <!--?<div class="col-xs-2">-->
+                    <!--?<button class="btn btn-default" type="submit" id="send_raw_pipe_data">Send</button>-->
+                <!--?</div>-->
+                <!--?<div class="col-xs-10">-->
+                    <!--?<input type="text" name="raw_pipe_data" id="raw_pipe_data" style="color:black;"/>-->
+                <!--?</div>-->
+            <!--?</div>-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="options"></div> <!-- react component -->
+                </div>
+            </div>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <h3>Menu 2</h3>
+            <p>Some content in menu 2.</p>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<!--?<script src="${request.static_url('hallled:static/js/jquery-1.12.0.min.js')}"></script>-->
+<script src="${request.static_url('hallled:static/js/jquery-ui.min.js')}"></script>
+<script src="${request.static_url('hallled:static/js/jquery.ui.touch-punch.min.js')}"></script>
+<script src="${request.static_url('hallled:static/js/tinycolor.min.js')}"></script>
+
+<script src="${request.static_url('hallled:static/lib/hall_led/bundle.min.js')}"></script>
+<!--?<script src="http://localhost:8080/build/bundle.js"></script>-->
+</body>
+</html>

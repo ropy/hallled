@@ -4,17 +4,28 @@ Methods which are annotated with "renderer='json'" are api methods
 """
 import logging
 import json
+import os.path
 
 from pyramid.view import view_config
-from hallled.serial_command.SerialCommand import SerialCommand
+# from hallled.serial_command.SerialCommand import SerialCommand
 
 
-ser = SerialCommand()
+# ser = SerialCommand()
 log = logging.getLogger(__name__)
 
 
 @view_config(route_name='home', renderer='templates/hallled.pt')
-def my_view(request):
+def home_view(request):
+    """
+    The home view.
+
+    :param request:
+    :return: dict with variables to be rendered
+    """
+    return {'project': 'HallLed'}
+
+@view_config(route_name='react', renderer='templates/react.pt')
+def react_view(request):
     """
     The home view.
 
@@ -24,8 +35,8 @@ def my_view(request):
     return {'project': 'HallLed'}
 
 
-@view_config(route_name='api_led_hslm', renderer='json')
-def api_led_hsla(request):
+@view_config(route_name='api_led_hslm', renderer='json', request_method="POST")
+def api_post_led_hsla(request):
     """
 
     :param request:
@@ -36,26 +47,33 @@ def api_led_hsla(request):
     :return:
     """
 
-    rememberRequest(request)
-    inHue = request.matchdict['hue']
-    inSat = request.matchdict['saturation']
-    inLig = request.matchdict['lightning']
-    inModulo = request.matchdict['modulo']
-    log.debug("hue: %s, saturation: %s, lightning: %s, modulo: %s", inHue, inSat, inLig, inModulo)
-    hue = translate(int(request.matchdict['hue']), 0, 360, 0, 254)
-    saturation = translate(float(request.matchdict['saturation']), 0, 1, 0, 254)
-    lightning = translate(float(request.matchdict['lightning']), 0, 1, 0, 254)
-    modulo = int(inModulo)
-    log.debug("hue: %i, saturation: %i, lightning: %i, modulo: %i", hue, saturation, lightning, modulo)
-    r = ser.sendHSLM(hue, saturation, lightning, modulo)
+    log.debug(request.body)
+
+    data = request.body.decode("utf-8")
+    save_data(data, "hslm")
+    body = json.loads(data)
+    color = body["color"]
+    mod = body["mod"]
+    hsl = color["hsl"]
+    hue = translate(float(hsl["hue"]), 0, 360, 0, 254)
+    saturation = translate(float(hsl["saturation"]), 0, 1, 0, 254)
+    lightning = translate(float(hsl["lightning"]), 0, 1, 0, 254)
+    modulo = int(mod)
+    if modulo == 0:
+        modulo = 1
+    # log.debug("hue: %i, saturation: %i, lightning: %i, modulo: %i", hue, saturation, lightning, modulo)
+
+    writeToPipe([104, hue, saturation, lightning, modulo])
     response = ""
-    if hasattr(r, 'decode'):
-        response = r.decode()
-    return dict(arduino=response)
+    return dict(arduino="ok")
+
+@view_config(route_name='api_led_hslm', renderer='string', request_method="GET")
+def api_get_led_hsla(request):
+    return load_data("hslm")
 
 @view_config(route_name='api_led_rgbm', renderer='json')
 def api_led_rgb(request):
-    rememberRequest(request)
+    # rememberRequest(request)
     inRed = request.matchdict['red']
     inGreen = request.matchdict['green']
     inBlue = request.matchdict['blue']
@@ -73,6 +91,29 @@ def api_led_rgb(request):
     r = ser.sendRGBM(red, green, blue, modulo)
 
     return dict(arduino=r)
+
+@view_config(route_name='api_named_pipe', renderer='json', request_method='POST')
+def api_named_pipe(request):
+    """
+
+    :param request:
+        request.matchdict['data'] the data to be written to the named pipe
+    :return: json data describing the result
+    """
+    fifo_write = open('/tmp/to_bridge', 'ab', 0)
+    data = request.body
+
+    log.debug("pipe data: %s", data)
+    bytes_to_write = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+    for item in data.split():
+        bytes_to_write.append(int(item))
+    log.debug("bytes: %s", bytes_to_write)
+    # bytes_to_write = bytearray(parts)
+    bytes_written = fifo_write.write(bytes(bytes_to_write))
+    log.debug("number bytes written: %i", bytes_written)
+    fifo_write.close()
+
+    return dict(pipe='ok')
 
 @view_config(route_name='api_info', renderer='json')
 def api_info(request):
@@ -92,13 +133,66 @@ def api_info(request):
 
     return data
 
+
 @view_config(route_name='api_serialcommand', renderer='json')
 def api_raw(request):
     command = request.matchdict['command']
     response = ser.send(command)
     return dict(arduino=response)
 
-def rememberRequest(request):
+
+@view_config(route_name="api_options", renderer="json", request_method="POST")
+def api_post_options(request):
+    save_data(request.body.decode("utf-8"), 'options')
+    options = json.loads(request.body.decode("utf-8"))
+    sensors = options["sensors"]
+    if sensors["motionSensor"] is not None:
+        motionSensor = sensors["motionSensor"]
+        log.debug(motionSensor["enabled"])
+        log.debug(motionSensor["timeout"])
+
+        command = []
+        command.append(111) # append an "o" for option command
+        command.append(115) # append a "s" to indicate sensor option
+        command.append(0) # zero is the motion sensor (for the time being)
+        n = len(motionSensor)
+        command.append(n) # append the number of commands
+
+        for key, value in motionSensor.items(): # append all values from the request
+            c = ord(key[:1] )# first character of the property
+            v = value # value of the propery
+            command.append(c)
+            command.append(v)
+
+        log.debug(command)
+        writeToPipe(command)  # "o" -> option (char),
+                              # "s" -> sensor (char),
+                              # i -> sensor number (int),
+                              # n -> number of commands (int)
+                              # c -> command ( "e" -> enabled, "t" -> timeout ) (char)
+                              # v -> value (int)
+    log.debug(options)
+    return dict(arduino="ok")
+
+
+@view_config(route_name="api_options", renderer='string', request_method="GET")
+def api_get_options(request):
+    return load_data("options")
+
+
+def writeToPipe(data):
+    fifo_write = open('/tmp/to_bridge', 'ab', 0)
+    bytes_to_write = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+    for item in data:
+        bytes_to_write.append(int(item))
+    log.debug("write to pipe: %s", bytes_to_write)
+    bytes_written = fifo_write.write(bytes(bytes_to_write))
+    log.debug("number bytes written: %i", bytes_written)
+    fifo_write.close()
+    return bytes_written
+
+
+def rememberHSLRequest(request):
     """
     Saves the request payload as a json data.
 
@@ -121,6 +215,22 @@ def rememberRequest(request):
 
     with open('hallled/data/request.txt', 'w') as f:
         json.dump(data, f)
+
+
+def save_data(data, filename):
+    with open('hallled/data/' + filename + '.txt', 'w') as f:
+        f.write(data)
+
+
+def load_data(filename):
+    file = 'hallled/data/' + filename + '.txt'
+
+    if(os.path.isfile(file)):
+        with open(file, 'r') as f:
+            return f.read()
+
+    return None
+
 
 def translate(value, leftMin, leftMax, rightMin, rightMax):
     """

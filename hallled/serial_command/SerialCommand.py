@@ -31,15 +31,18 @@ class SerialCommand:
     # SERIAL_PORT = "/dev/tty.Bluetooth-Incoming-Port"
 
     def __init__(self):
-        self.ser = serial.Serial(self.SERIAL_PORT, 115200, timeout=5)
-        self.actions = {'HSLM': 'h', 'RGBM':'r', 'GET':'g'}
+#        self.ser = serial.Serial(self.SERIAL_PORT, 115200, timeout=5)
+        self.actions = {'HSLM': 'h', 'RGBM':'r', 'GET':'g', }
         self._tab = [ self._initial(i) for i in range(256) ]
         self.q_in = queue.Queue()
         # log.debug(self._tab)
 
+    def send_raw_data(self, payload):
+        pass
+
     def build_command(self):
         pass
-    
+
     def sendHSLM(self, hue, saturation, lightning, modulo=1):
         # command = self.action['HSLM'] + hue + saturation + lightning + modulo
         # payload = {'hue':hue, 'saturation':saturation, 'lightning':lightning, 'modulo':modulo}

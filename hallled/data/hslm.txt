@@ -1,0 +1,1 @@
+{"color":{"hsl":{"hue":172,"saturation":0.41,"lightning":0.27}},"busy":false,"mod":0,"hue":1,"saturation":127,"lightning":127,"data":{"arduino":"ok"}}

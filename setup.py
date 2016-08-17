@@ -13,7 +13,9 @@ requires = [
     'pyramid_chameleon',
     'pyramid_debugtoolbar',
     'waitress',
-    'pyserial'
+    'pyserial',
+    'watchdog',
+    'pyramid_scheduler'
     ]
 
 setup(name='HallLed',

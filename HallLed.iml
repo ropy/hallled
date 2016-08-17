@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Python" name="Python">
+      <configuration sdkName="Python 3.5.1 virtualenv at ~/dev/remote/dc/devel/web/env3.5" />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/hallled/serial_command" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/hallled/async" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.3.2 (/Library/Frameworks/Python.framework/Versions/3.3/bin/python3.3)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Python 3.5.1 virtualenv at ~/dev/remote/dc/devel/web/env3.5 interpreter library" level="application" />
+  </component>
+</module>
