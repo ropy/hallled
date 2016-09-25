@@ -1,1 +1,1 @@
-{"busy":false,"sensors":{"motionSensor":{"timeout":"20","enabled":"1"}},"response":{"arduino":"ok"}}
+{"busy":false,"sensors":{"motionSensor":{"timeout":"20","enabled":"0"}},"response":{"arduino":"ok"}}

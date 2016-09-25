@@ -7,10 +7,9 @@ import json
 import os.path
 
 from pyramid.view import view_config
-# from hallled.serial_command.SerialCommand import SerialCommand
 
+from hallled.async.GatewayClient import GatewayClient
 
-# ser = SerialCommand()
 log = logging.getLogger(__name__)
 
 
@@ -63,7 +62,8 @@ def api_post_led_hsla(request):
         modulo = 1
     # log.debug("hue: %i, saturation: %i, lightning: %i, modulo: %i", hue, saturation, lightning, modulo)
 
-    writeToPipe([104, hue, saturation, lightning, modulo])
+    # writeToPipe([104, hue, saturation, lightning, modulo])
+    write_to_socket([104, hue, saturation, lightning, modulo])
     response = ""
     return dict(arduino="ok")
 
@@ -88,9 +88,8 @@ def api_led_rgb(request):
     # build the 8 byte command with pre and postfix
     # command = ser.SERIAL_START + 'r' + red + green + blue + modulo + '000' + ser.SERIAL_END
     # response= ser.send(command)
-    r = ser.sendRGBM(red, green, blue, modulo)
 
-    return dict(arduino=r)
+    return dict(arduino="")
 
 @view_config(route_name='api_named_pipe', renderer='json', request_method='POST')
 def api_named_pipe(request):
@@ -134,13 +133,6 @@ def api_info(request):
     return data
 
 
-@view_config(route_name='api_serialcommand', renderer='json')
-def api_raw(request):
-    command = request.matchdict['command']
-    response = ser.send(command)
-    return dict(arduino=response)
-
-
 @view_config(route_name="api_options", renderer="json", request_method="POST")
 def api_post_options(request):
     save_data(request.body.decode("utf-8"), 'options')
@@ -165,12 +157,13 @@ def api_post_options(request):
             command.append(v)
 
         log.debug(command)
-        writeToPipe(command)  # "o" -> option (char),
+        #writeToPipe(command)  # "o" -> option (char),
                               # "s" -> sensor (char),
                               # i -> sensor number (int),
                               # n -> number of commands (int)
                               # c -> command ( "e" -> enabled, "t" -> timeout ) (char)
                               # v -> value (int)
+        write_to_socket(command)
     log.debug(options)
     return dict(arduino="ok")
 
@@ -179,7 +172,14 @@ def api_post_options(request):
 def api_get_options(request):
     return load_data("options")
 
+@view_config(route_name="socket_test", renderer="json", request_method="GET")
+def socket_test(request):
+    server = GatewayClient()
+    server.write("socket test message")
+    return server.info()
 
+
+# deprecated
 def writeToPipe(data):
     fifo_write = open('/tmp/to_bridge', 'ab', 0)
     bytes_to_write = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
@@ -190,6 +190,15 @@ def writeToPipe(data):
     log.debug("number bytes written: %i", bytes_written)
     fifo_write.close()
     return bytes_written
+
+
+def write_to_socket(data):
+    log.debug("write_to_socket")
+    gateway_client = GatewayClient()
+    log.debug("got gateway client")
+    gateway_client.write(data)
+    return len(data)
+
 
 
 def rememberHSLRequest(request):

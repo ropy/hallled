@@ -14,7 +14,6 @@ HallLed.egg-info/top_level.txt
 hallled/__init__.py
 hallled/tests.py
 hallled/views.py
-hallled/serial_command/SerialCommand.py
 hallled/serial_command/__init__.py
 hallled/static/pyramid-16x16.png
 hallled/static/pyramid.png

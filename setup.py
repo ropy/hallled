@@ -15,7 +15,10 @@ requires = [
     'waitress',
     'pyserial',
     'watchdog',
-    'pyramid_scheduler'
+    'pyramid_scheduler',
+    'sqlalchemy',
+    'pyramid_tm',
+    'zope.sqlalchemy'
     ]
 
 setup(name='HallLed',
@@ -41,5 +44,7 @@ setup(name='HallLed',
       entry_points="""\
       [paste.app_factory]
       main = hallled:main
+      [console_scripts]
+      init_hallled_db = hallled.initialize_db:main
       """,
       )
